@@ -44,7 +44,7 @@ public class Solution
 
 	public boolean complete()
 	{
-
+		return false;
 	}
 
 	public void show()
@@ -56,9 +56,11 @@ public class Solution
 	{
 		for (int i = board.length-1; i >= 0; i++) {
 			for (int j = board[i].length-1; j >= 0; j++) {
-				if()
+//				if()
 			}
 		}
+
+		return null;
     }
 	
 	// can be used in method isCorrect
