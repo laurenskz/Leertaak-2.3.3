@@ -6,7 +6,7 @@ import java.util.*;
  */
 class Tui
 {
-    private Scanner reader      = new Scanner(System.in);
+    private Scanner reader = new Scanner(System.in);
     private TicTacToe t; 
  
     public Tui()
@@ -14,7 +14,7 @@ class Tui
         do
         {
             System.out.println("*** new Game ***\n");
-            t=new TicTacToe();
+            t = new TicTacToe();
             if (t.computerPlays()) System.out.println("I start:\n");
             else                   System.out.println("You start:\n");
             while (!t.gameOver())
@@ -66,5 +66,3 @@ class Tui
         return yn=='Y'|| yn=='y';
     }
 }
-
-

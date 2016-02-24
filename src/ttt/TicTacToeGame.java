@@ -1,10 +1,10 @@
 package ttt;
 
 import java.util.Random;
-class TicTacToe
+class TicTacToeClass
 {
-	private static final int HUMAN        = 0; 
-	private static final int COMPUTER     = 1; 
+	private static final int HUMAN        = 0;
+	private static final int COMPUTER     = 1;
 	public  static final int EMPTY        = 2;
 
 	public  static final int HUMAN_WIN    = 0;
@@ -13,30 +13,30 @@ class TicTacToe
 	public  static final int COMPUTER_WIN = 3;
 
 	private int [ ] [ ] board = new int[ 3 ][ 3 ];
-    private Random random=new Random();  
-	private int side=random.nextInt(2);  
+    private Random random=new Random();
+	private int side=random.nextInt(2);
 	private int position=UNCLEAR;
 	private char computerChar,humanChar;
 
 	// Constructor
-	public TicTacToe( )
+	public TicTacToeClass( )
 	{
 		clearBoard( );
 		initSide();
 	}
-	
+
 	private void initSide()
 	{
 	    if (this.side==COMPUTER) { computerChar='X'; humanChar='O'; }
 		else                     { computerChar='O'; humanChar='X'; }
     }
-    
+
     public void setComputerPlays()
     {
         this.side=COMPUTER;
         initSide();
     }
-    
+
     public void setHumanPlays()
     {
         this.side=HUMAN;
@@ -54,7 +54,7 @@ class TicTacToe
 	    //return best.row*3+best.column;
 	    return 0;
     }
-    
+
     // Find optimal move
 	private Best chooseMove( int side )
 	{
@@ -72,14 +72,14 @@ class TicTacToe
 	    return null;
     }
 
-   
+
     //check if move ok
     public boolean moveOk(int move)
     {
  	//return ( move>=0 && move <=8 && board[move/3 ][ move%3 ] == EMPTY );
  	return true;
     }
-    
+
     // play move
     public void playMove(int move)
     {
@@ -125,28 +125,28 @@ class TicTacToe
 		// TODO:
 		return UNCLEAR;
 	}
-	
-	
+
+
 	public String toString()
 	{
 	    //TODO:
-		return "...\n...\n...\n";   
-	}  
-	
+		return "...\n...\n...\n";
+	}
+
 	public boolean gameOver()
 	{
 	    this.position=positionValue();
 	    return this.position!=UNCLEAR;
     }
-    
+
     public String winner()
     {
         if      (this.position==COMPUTER_WIN) return "computer";
         else if (this.position==HUMAN_WIN   ) return "human";
         else                                  return "nobody";
     }
-    
-	
+
+
 	private class Best
     {
        int row;
@@ -155,11 +155,11 @@ class TicTacToe
 
        public Best( int v )
          { this( v, 0, 0 ); }
-      
+
        public Best( int v, int r, int c )
         { val = v; row = r; column = c; }
-    } 
-	
-	
+    }
+
+
 }
 
