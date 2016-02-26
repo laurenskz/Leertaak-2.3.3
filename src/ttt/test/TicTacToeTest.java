@@ -26,6 +26,7 @@ public class TicTacToeTest {
 
     @Test
     public void testAWin() throws Exception {
-
+        TicTacToe ttt = new TicTacToe();
+//        ttt.
     }
 }

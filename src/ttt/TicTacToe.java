@@ -1,5 +1,7 @@
 package ttt;
 
+import sun.security.x509.OtherName;
+
 import java.util.Random;
 
 public class TicTacToe
@@ -13,11 +15,15 @@ public class TicTacToe
     public  static final int UNCLEAR      = 2;
     public  static final int COMPUTER_WIN = 3;
 
+    public static final char BEGIN_CHAR = 'X';
+    public static final char OTHER_CHAR = 'O';
+    public static final char EMPTY_CHAR = '#';
+
     private int [ ] [ ] board = new int[ 3 ][ 3 ];
-    private Random random=new Random();
-    private int side=random.nextInt(2);
-    private int position=UNCLEAR;
-    private char computerChar,humanChar;
+    private Random random = new Random();
+    private int side = random.nextInt(2);
+    private int position = UNCLEAR;
+    private char computerChar, humanChar;
 
     // Constructor
     public TicTacToe( )
@@ -28,8 +34,8 @@ public class TicTacToe
 
     private void initSide()
     {
-        if (this.side==COMPUTER) { computerChar='X'; humanChar='O'; }
-        else                     { computerChar='O'; humanChar='X'; }
+        if (this.side == COMPUTER) { computerChar = BEGIN_CHAR; humanChar = OTHER_CHAR; }
+        else                     { computerChar = OTHER_CHAR; humanChar = BEGIN_CHAR; }
     }
 
     public void setComputerPlays()
@@ -53,6 +59,8 @@ public class TicTacToe
     {
         //Best best=chooseMove(COMPUTER);
         //return best.row*3+best.column;
+
+        // TODO implementeren van Best klasse
         return 0;
     }
 
@@ -77,8 +85,7 @@ public class TicTacToe
     //check if move ok
     public boolean moveOk(int move)
     {
-        //return ( move>=0 && move <=8 && board[move/3 ][ move%3 ] == EMPTY );
-        return true;
+        return ( move>=0 && move <=8 && board[move/3][move%3 ] == EMPTY );
     }
 
     // play move
@@ -92,21 +99,42 @@ public class TicTacToe
     // Simple supporting routines
     private void clearBoard( )
     {
-        //TODO:
+        for (int[] ints : board) {
+            for (int i = 0; i < ints.length; i++) {
+                ints[i] = EMPTY;
+            }
+        }
     }
 
 
     private boolean boardIsFull( )
     {
-        //TODO:
+        for (int[] ints : board) {
+            for (int anInt : ints) {
+                // If there is an empty square, return false
+                if (anInt == EMPTY) return false;
+            }
+        }
+        // If not, return true
         return true;
     }
 
     // Returns whether 'side' has won in this position
     private boolean isAWin( int side )
     {
-        //TODO:
-        return true;
+        // Check the board horizontally
+        for (int[] row : board) {
+            if (row[1] == side && row[2] == side && row[3] == side) {
+                return true;
+            }
+        }
+
+        // Check the board vertically
+
+
+        // Check the board diagonally
+
+        return false;
     }
 
     // Play a move, possibly clearing a square
@@ -123,20 +151,44 @@ public class TicTacToe
     // Compute static value of current position (win, draw, etc.)
     private int positionValue( )
     {
-        // TODO:
-        return UNCLEAR;
+        if (isAWin(HUMAN)) {
+            return HUMAN_WIN;
+        } else if (isAWin(COMPUTER)) {
+            return COMPUTER_WIN;
+        } else if (boardIsFull()) {
+            return DRAW;
+        } else {
+            return UNCLEAR;
+        }
     }
 
 
     public String toString()
     {
-        //TODO:
-        return "...\n...\n...\n";
+        StringBuilder sb = new StringBuilder();
+
+        for (int[] rows : board) {
+            for (int spot : rows) {
+                switch (spot) {
+                    case COMPUTER:
+                        sb.append(computerChar);
+                        break;
+                    case HUMAN:
+                        sb.append(humanChar);
+                        break;
+                    default:
+                        sb.append(EMPTY_CHAR);
+                        break;
+                }
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     public boolean gameOver()
     {
-        this.position=positionValue();
+        this.position = positionValue();
         return this.position!=UNCLEAR;
     }
 
