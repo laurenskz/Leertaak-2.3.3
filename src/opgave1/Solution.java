@@ -76,6 +76,7 @@ public class Solution {
         return count == 8&&isCorrect();
     }
 
+	}
 
     /**
      * Shows the solution
