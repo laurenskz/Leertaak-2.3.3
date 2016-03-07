@@ -6,9 +6,9 @@ import java.util.Random;
 
 public class TicTacToe
 {
-    private static final int HUMAN        = 0;
-    private static final int COMPUTER     = 1;
-    public  static final int EMPTY        = 2;
+    public static final int HUMAN        = 0;
+    public static final int COMPUTER     = 1;
+    public static final int EMPTY        = 2;
 
     public  static final int HUMAN_WIN    = 0;
     public  static final int DRAW         = 1;
@@ -30,6 +30,10 @@ public class TicTacToe
     {
         clearBoard( );
         initSide();
+    }
+
+    public void setBoard(int[][] newBoard) {
+        board = newBoard;
     }
 
     private void initSide()
@@ -75,38 +79,29 @@ public class TicTacToe
         if((simpleEval = positionValue()) != UNCLEAR)
             return new Best(simpleEval);
 
+        opp = side == HUMAN ? COMPUTER : HUMAN;
+
+        Best tmp;
+
         for (int i = 0; i < 9; i++) {
             if (moveOk(i)) {
                 place(i/3, i%3, side);
 
-                Best tmp = null;
+                tmp = chooseMove(opp);
+                tmp.column = i%3;
+                tmp.row = i/3;
 
-                if (side == HUMAN) {
-                    tmp  = chooseMove(COMPUTER);
-
-                    if (reply == null) {
+                if (reply == null) {
+                    reply = tmp;
+                } else if (side == HUMAN) {
+                    if (tmp.val < reply.val) {
                         reply = tmp;
-                        reply.column = i%3;
-                        reply.row = i/3;
-                    } else if (tmp.val < reply.val) {
-                        reply = tmp;
-                        reply.column = i%3;
-                        reply.row = i/3;
                     }
                 } else {
-                    tmp = chooseMove(HUMAN);
-
-                    if (reply == null) {
+                    if (tmp.val > reply.val) {
                         reply = tmp;
-                        reply.column = i%3;
-                        reply.row = i/3;
-                    } else if (tmp.val > reply.val) {
-                        reply = tmp;
-                        reply.column = i%3;
-                        reply.row = i/3;
                     }
                 }
-
                 place(i/3, i%3, EMPTY);
             }
         }
@@ -152,7 +147,7 @@ public class TicTacToe
     }
 
     // Returns whether 'side' has won in this position
-    private boolean isAWin( int side )
+    public boolean isAWin( int side )
     {
         // Check the board horizontally
         for (int[] row : board) {
@@ -192,7 +187,7 @@ public class TicTacToe
     }
 
     // Compute static value of current position (win, draw, etc.)
-    private int positionValue( )
+    public int positionValue( )
     {
         if (isAWin(HUMAN)) {
             return HUMAN_WIN;
