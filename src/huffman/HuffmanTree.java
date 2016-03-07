@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.List;
 
 
 //Huffman tree class interface: manipulate huffman coding tree.
@@ -81,7 +81,14 @@ public class HuffmanTree
 	  */
 	 public int getChar( String code )
 	 {
-	     // TODO = opdracht           
+         HuffNode current = root;
+		 for (int i = 0; i < code.length(); i++) {
+             char c = code.charAt(i);
+			 if(c=='0')current=current.left;
+			 if(c=='1')current=current.right;
+		 }
+         if(current.left!=null||current.right!=null)return INCOMPLETE_CODE;//This is not a leaf :S
+		 return current.value;
 	 }
 	 
 	 /**
@@ -143,9 +150,8 @@ public class HuffmanTree
 	  */
 	 private void createTree( )
 	 {
-	     ArrayList<HuffNode> ar = new ArrayList<HuffNode>();
-		 
-	     for( int i = 0; i <= BitUtils.DIFF_BYTES; i++ )
+         ArrayList<HuffNode> ar = new ArrayList<HuffNode>();
+         for( int i = 0; i <= BitUtils.DIFF_BYTES; i++ )
 	         if ( theCounts.getCount( i ) > 0 )
 	         {
 	             HuffNode newNode = new HuffNode( i,
@@ -153,9 +159,27 @@ public class HuffmanTree
 	             theNodes[ i ] =  newNode;
 	             ar.add( newNode );
 	         }
-	              
-	     // TODO = opdracht      
-	     
+         while(ar.size()>1){
+			 HuffNode left = lowestWeight(ar);
+			 HuffNode right = lowestWeight(ar);
+			 HuffNode parent = new HuffNode(-1,right.weight+left.weight,left,right,null);
+			 right.parent = parent;
+			 left.parent = parent;
+			 ar.add(parent);
+		 }
 	     root = ar.remove(0);
 	 }
+
+	private HuffNode lowestWeight(List<HuffNode> input){
+        int smallest = Integer.MAX_VALUE;
+		HuffNode toReturn = null;
+		for (HuffNode huffNode : input) {
+			if(huffNode.weight<smallest){
+				toReturn = huffNode;
+                smallest = huffNode.weight;
+            }
+		}
+		input.remove(toReturn);//Remove it so we can move on.
+        return toReturn;
+	}
 }

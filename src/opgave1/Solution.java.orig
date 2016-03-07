@@ -62,6 +62,7 @@ public class Solution {
         return null;
     }
 
+<<<<<<< HEAD
     /**
      *
      * @return true if the board is correct and done
@@ -76,6 +77,12 @@ public class Solution {
         return count == 8&&isCorrect();
     }
 
+=======
+	public boolean complete()
+	{
+		return false;
+	}
+>>>>>>> origin/master
 
     /**
      * Shows the solution
@@ -101,12 +108,24 @@ public class Solution {
         return null;
     }
 
+<<<<<<< HEAD
     // can be used in method isCorrect
     private char mustBeAdjacentTo(char card) {
         if (card == 'A') return 'K';
         if (card == 'K') return 'Q';
         if (card == 'Q') return 'J';
         return '?'; //error
+=======
+	public Candidate eraseRecording()
+	{
+		for (int i = board.length-1; i >= 0; i++) {
+			for (int j = board[i].length-1; j >= 0; j++) {
+//				if()
+			}
+		}
+
+		return null;
+>>>>>>> origin/master
     }
 
     /**

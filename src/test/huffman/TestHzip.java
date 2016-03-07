@@ -1,7 +1,10 @@
-package huffman;
+package test.huffman;
 
 import java.util.Arrays;
+
+import huffman.Hzip;
 import junit.framework.TestCase;
+import test.huffman.Support;
 
 /*
  * Here we will test the compress and uncompress functions of Hzip.
@@ -68,7 +71,7 @@ public class TestHzip extends TestCase {
 			System.err.println("Fatal error: could not make the comress/decompress chain.");
 		}
 		int[] result = support.readFile(support.testFileDec);
-		assertTrue(Arrays.equals(support.text1, result));
+        assertTrue(Arrays.equals(support.text1, result));
 		support.prepareTest(support.text2, support.testFilePlain);
 		try {
 			Hzip.compress(support.testFilePlain);

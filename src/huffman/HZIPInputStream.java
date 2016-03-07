@@ -18,7 +18,6 @@ public class HZIPInputStream extends InputStream
     {
         codeTree = new HuffmanTree( );
         codeTree.readEncodingTable( new DataInputStream( in ) );
-        
         bin = new BitInputStream( in );
     }
     
@@ -34,7 +33,7 @@ public class HZIPInputStream extends InputStream
 
         while( true )
         {
-            bit = bin.readBit( );        
+            bit = bin.readBit( );
             if( bit == -1 )
                 return -1;
                 

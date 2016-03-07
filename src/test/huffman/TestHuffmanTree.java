@@ -1,4 +1,4 @@
-package huffman;
+package test.huffman;
 
 //import huffman.HuffmanTree;
 
@@ -7,7 +7,9 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import huffman.HuffmanTree;
 import junit.framework.*;
+import test.huffman.Support;
 
 /*
  * This class tests the HuffmanTree.
