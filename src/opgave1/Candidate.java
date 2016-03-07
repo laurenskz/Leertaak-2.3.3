@@ -5,6 +5,8 @@ package opgave1;
  */
 public class Candidate {
 
+    public static final Candidate INVALID = new Candidate('X');
+
     private char value;
 
     public Candidate(char value) {
@@ -16,5 +18,10 @@ public class Candidate {
 
     public void setValue(char value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return ""+value;
     }
 }
